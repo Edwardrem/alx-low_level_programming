@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc -S -masm=intel 2-main.c > 2-main.s
+gcc -S $CFILE -o "${CFILE%.c}.s"
