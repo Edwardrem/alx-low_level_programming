@@ -3,7 +3,7 @@
 #include <time.h>
 
 /**
- * main - prints whether the number stored in variable n is positive or negative
+ * prints the number variable n is positive or negative
  *
  * Return: 0 if successful
  */
