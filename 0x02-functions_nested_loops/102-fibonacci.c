@@ -8,13 +8,13 @@
 int main(void)
 {
 	int i;
-	long int a =1;
+	long int a = 1;
 	long int b = 2;
 	long int c;
 
 	printf("%ld, %ld", a, b);
 
-	for (i =3; i <= 50; i++)
+	for (i = 3; i <= 50; i++)
 	{
 		c = a + b;
 		printf(", %ld", c);
