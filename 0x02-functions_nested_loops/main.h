@@ -1,8 +1,6 @@
-#ifndef HEADER_FILE
-#define HEADER_FILE
+#ifndef MAIN_H
+#define MAIN_H
 
-void _putchar(char c) {
-  putchar(c);
-}
+void _putchar(char c);
 
-#endif
+#endif /* MAIN_H */
