@@ -7,10 +7,10 @@
  */
 int main(void)
 {
-	int i;
-	unsigned long a = 1;
-	unsigned long b = 2;
-	unsigned long c;
+	unsigned long int i;
+	unsigned long int a = 1;
+	unsigned long int b = 2;
+	unsigned long int c;
 
 	printf("%lu, %lu", a, b);
 
