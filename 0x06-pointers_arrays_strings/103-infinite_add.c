@@ -1,37 +1,40 @@
 #include "main.h"
-#include <string.h>
+#include <stdio.h>
 
 /**
  * infinite_add - adds two numbers
- * @n1: the first number
- * @n2: the second number
- * @r: the buffer to store the result
- * @size_r: the buffer size
+ * @n1: first number
+ * @n2: second number
+ * @r: buffer to store result
+ * @size_r: buffer size
  *
- * Return: pointer to the result, or 0 if it can not be stored in r
+ * Return: pointer to result or 0 if result cannot be stored in r
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, j, k, carry = 0;
-	int len1 = strlen(n1), len2 = strlen(n2);
+	int i, j, k, l, m, n;
 
-	for (i = len1 - 1, j = len2 - 1, k = size_r - 1; k >= 0; i--, j--, k--)
-	{
-		int sum = carry;
-
-		if (i >= 0)
-			sum += n1[i] - '0';
-		if (j >= 0)
-			sum += n2[j] - '0';
-		r[k] = sum % 10 + '0';
-		carry = sum / 10;
-	}
-
-	if (carry > 0 || i >= 0 || j >= 0)
+	for (i = 0; n1[i]; i++)
+		;
+	for (j = 0; n2[j]; j++)
+		;
+	if (i > size_r || j > size_r)
 		return (0);
-
-	memmove(r, r + k + 1, size_r - k - 1);
-	r[size_r - k - 1] = '\0';
-
+	m = 0;
+	for (k = i - 1, l = j - 1, n = 0; k >= 0 || l >= 0 || n; k--, l--, m++)
+	{
+		n += (k >= 0 ? n1[k] - '0' : 0) + (l >= 0 ? n2[l] - '0' : 0);
+		if (m >= size_r - 1 && (k > 0 || l > 0 || n > 9))
+			return (0);
+		r[m] = n % 10 + '0';
+		n /= 10;
+	}
+	r[m] = '\0';
+	for (m--, k = 0; k < m; k++, m--)
+	{
+		n = r[k];
+		r[k] = r[m];
+		r[m] = n;
+	}
 	return (r);
 }
