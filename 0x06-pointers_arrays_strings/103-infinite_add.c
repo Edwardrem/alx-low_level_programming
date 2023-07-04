@@ -1,45 +1,53 @@
 #include "main.h"
+#include <string.h>
 
-/**
- * infinite_add - adds two numbers
- * @n1: first number
- * @n2: second number
- * @r: buffer to store result
- * @size_r: buffer size
+/*
+ * infinite_add - adds two numbers.
  *
- * Return: pointer to result or 0 if result cannot be stored in r
+ * The function adds two numbers represented as strings.
+ * The result is stored in a buffer.
+ * The function returns a pointer to the result.
+ * If the result can not be stored in the buffer, the function returns 0.
+ *
+ * Parameters:
+ *  n1 - a pointer to the first number.
+ *  n2 - a pointer to the second number.
+ *  r - a pointer to the buffer where the result will be stored.
+ *  size_r - the size of the buffer.
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, j, n1_len, n2_len, max_len, sum, carry;
-
-	for (n1_len = 0; n1[n1_len]; n1_len++)
-		;
-	for (n2_len = 0; n2[n2_len]; n2_len++)
-		;
-	max_len = n1_len > n2_len ? n1_len : n2_len;
-	if (max_len + 1 >= size_r)
-		return (0);
-	carry = 0;
-	for (i = n1_len - 1, j = n2_len - 1, max_len--; max_len >= 0; i--, j--, max_len--)
+	int i, j, carry = 0;
+	/* reverse the numbers */
+	for (i = 0, j = strlen(n1) - 1; i < strlen(n1); i++, j--)
 	{
-		sum = carry;
-		sum += i >= 0 ? n1[i] - '0' : 0;
-		sum += j >= 0 ? n2[j] - '0' : 0;
-		carry = sum / 10;
-		r[max_len + 1] = sum % 10 + '0';
+		n1[i] = n1[j];
 	}
-	r[max_len + 1] = '\0';
-	if (carry)
+	for (i = 0, j = strlen(n2) - 1; i < strlen(n2); i++, j--)
 	{
-		if (max_len < 0)
+		n2[i] = n2[j];
+	}
+	/* add the numbers */
+	for (i = 0; i < size_r; i++)
+	{
+		r[i] = (n1[i] - '0') + (n2[i] - '0') + carry;
+		carry = r[i] / 10;
+		r[i] = r[i] % 10;
+	}
+	/* add the carry */
+	if (carry > 0)
+	{
+		if (i == size_r)
+		{
 			return (0);
-		r[max_len--] = carry + '0';
+		}
+		r[i] = carry;
+		i++;
 	}
-	else
-		max_len++;
-	for (i = 0; r[max_len]; i++, max_len++)
-		r[i] = r[max_len];
-	r[i] = '\0';
+	/* reverse the result */
+	for (i = 0, j = strlen(r) - 1; i < strlen(r); i++, j--)
+	{
+		r[i] = r[j];
+	}
 	return (r);
 }
