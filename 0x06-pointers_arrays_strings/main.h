@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void _putchar(char c);
 char *_strcat(char *dest, char *src);
@@ -17,5 +18,6 @@ char *leet(char *);
 char *rot13(char *);
 void print_number(int n);
 char *infinite_add(char *n1, char *n2, char *r, int size_r);
+void rev_string(char *s);
 
 #endif /* MAIN_H */

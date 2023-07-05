@@ -1,53 +1,63 @@
 #include "main.h"
-#include <string.h>
 
-/*
- * infinite_add - adds two numbers.
+/**
+ * rev_string - reverses a string
+ * @s: pointer to the string to reverse
  *
- * The function adds two numbers represented as strings.
- * The result is stored in a buffer.
- * The function returns a pointer to the result.
- * If the result can not be stored in the buffer, the function returns 0.
+ * Return: void
+ */
+void rev_string(char *s)
+{
+	int len = strlen(s);
+	int i;
+	char tmp;
+
+	for (i = 0; i < len / 2; i++)
+	{
+		tmp = s[i];
+		s[i] = s[len - i - 1];
+		s[len - i - 1] = tmp;
+	}
+}
+
+/**
+ * infinite_add - adds two numbers
+ * @n1: pointer to the first number
+ * @n2: pointer to the second number
+ * @r: pointer to the buffer to store the result
+ * @size_r: the size of the buffer
  *
- * Parameters:
- *  n1 - a pointer to the first number.
- *  n2 - a pointer to the second number.
- *  r - a pointer to the buffer where the result will be stored.
- *  size_r - the size of the buffer.
+ * Return: a pointer to the result, or 0 if the result can not be stored in r
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, j, carry = 0;
-	/* reverse the numbers */
-	for (i = 0, j = strlen(n1) - 1; i < strlen(n1); i++, j--)
+	int len1 = strlen(n1);
+	int len2 = strlen(n2);
+	int max_len = (len1 > len2) ? len1 : len2;
+	int i, carry = 0;
+
+	if (max_len + 1 >= size_r)
 	{
-		n1[i] = n1[j];
+		return (0);
 	}
-	for (i = 0, j = strlen(n2) - 1; i < strlen(n2); i++, j--)
+
+	for (i = 0; i < max_len; i++)
 	{
-		n2[i] = n2[j];
+		int digit1 = (i < len1) ? n1[len1 - i - 1] - '0' : 0;
+		int digit2 = (i < len2) ? n2[len2 - i - 1] - '0' : 0;
+		int sum = digit1 + digit2 + carry;
+
+		r[i] = (sum % 10) + '0';
+		carry = sum / 10;
 	}
-	/* add the numbers */
-	for (i = 0; i < size_r; i++)
-	{
-		r[i] = (n1[i] - '0') + (n2[i] - '0') + carry;
-		carry = r[i] / 10;
-		r[i] = r[i] % 10;
-	}
-	/* add the carry */
+
 	if (carry > 0)
 	{
-		if (i == size_r)
-		{
-			return (0);
-		}
-		r[i] = carry;
-		i++;
+		r[max_len++] = carry + '0';
 	}
-	/* reverse the result */
-	for (i = 0, j = strlen(r) - 1; i < strlen(r); i++, j--)
-	{
-		r[i] = r[j];
-	}
+
+	r[max_len] = '\0';
+	rev_string(r);
+
 	return (r);
 }
