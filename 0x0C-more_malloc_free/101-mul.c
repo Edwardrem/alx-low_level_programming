@@ -45,5 +45,6 @@ int main(int argc, char *argv[])
 	product = num1 * num2;
 
 	printf("%d\n", product);
+
 	return (0);
 }
